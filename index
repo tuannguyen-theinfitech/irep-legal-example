@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slack OAuth Token</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        .container { max-width: 500px; margin: auto; }
+        .token-box { background: #f3f3f3; padding: 10px; border-radius: 5px; word-wrap: break-word; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>✅ Slack OAuth Successful!</h2>
+        <p>Your Slack token is:</p>
+        <div id="token" class="token-box">Fetching...</div>
+        <p>Copy this token and save it in your GitHub Secrets.</p>
+        <button onclick="copyToken()">📋 Copy Token</button>
+    </div>
+
+    <script>
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        const token = getQueryParam("code"); // Slack gửi mã này
+        document.getElementById("token").innerText = token ? token : "Error: No token found.";
+
+        function copyToken() {
+            const text = document.getElementById("token").innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Token copied to clipboard!");
+            });
+        }
+    </script>
+</body>
+</html>
